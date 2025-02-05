@@ -1,5 +1,5 @@
 <h1>Sistema de gestão de recursos humanos</h1>
-![Image](https://github.com/user-attachments/assets/a714c410-6133-4a98-93c7-f5f99529ccff)
+![Image Alt] (https://github.com/Rildian/trabalhoDeBancos/blob/main/src/documentation/kindpng_1447275.png?raw=true)
 
 <h2>Trabalho da disciplina Fundamentos de Bancos de Dados</h2>
 <p1>A disciplina foi ministrada pelo professor Pitágoras Graca Martins, docente da Universidade
