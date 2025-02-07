@@ -17,7 +17,7 @@ CREATE TABLE funcionario (
     email VARCHAR(250) NOT NULL UNIQUE,
     CPF VARCHAR(14) NOT NULL UNIQUE,
     id_cargo INT NOT NULL,
-    data_contratacao DATE NOT NULL CHECK (data_contratacao <= CURDATE()),
+    data_contratacao DATE NOT NULL,
     salario DECIMAL(10, 2) NOT NULL CHECK (salario > 0),
     FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo) ON UPDATE CASCADE,
     FOREIGN KEY (id_departamento) REFERENCES departamento(id_departamento) ON DELETE RESTRICT
@@ -27,7 +27,7 @@ CREATE TABLE funcionario (
 CREATE TABLE folha_pagamento (
     id_folha INT PRIMARY KEY AUTO_INCREMENT,
     id_funcionario INT NOT NULL,
-    data_pagamento DATE NOT NULL CHECK (data_pagamento <= CURDATE()),
+    data_pagamento DATE NOT NULL,
     salario_liquido DECIMAL(10, 2) NOT NULL CHECK (salario_liquido > 0),
     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id_funcionario) ON DELETE CASCADE
 );
