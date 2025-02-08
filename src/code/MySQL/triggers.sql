@@ -18,14 +18,14 @@ CREATE TRIGGER antes_inserir_cargo
 BEFORE INSERT ON cargo
 FOR EACH ROW
 	BEGIN
-		IF NEW.titulo_cargo IS NULL THEN
+		IF NEW.nome_cargo IS NULL THEN
 			SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Título do cargo não pode ser nulo.';
+            SET MESSAGE_TEXT = 'Nome de cargo inválido.';
 		END IF;
         
-        IF (SELECT COUNT(titulo_cargo) FROM cargo WHERE titulo_cargo = NEW.titulo_cargo) > 0 THEN 
+        IF (SELECT COUNT(nome_cargo) FROM cargo WHERE nome_cargo = NEW.nome_cargo) > 0 THEN 
 			SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Título de cargo já existente.';
+            SET MESSAGE_TEXT = 'Função já existente.';
 		END IF;
         
         IF NEW.salario_base < 0 THEN
@@ -62,7 +62,7 @@ FOR EACH ROW
             SET MESSAGE_TEXT = 'CPF já registrado.';
 		END IF;
         
-        IF LENGTH(NEW.CPF) != 13 THEN
+        IF LENGTH(NEW.CPF) != 14 THEN
 			SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'CPF inválido.';
 		END IF;
@@ -194,80 +194,13 @@ END$$
 
 DELIMITER ;
 
-DELIMITER $$
 
-CREATE TRIGGER antes_inserir_historico_promocoes
-BEFORE INSERT ON historico_promocoes
-FOR EACH ROW
-BEGIN
-    IF NEW.id_funcionario IS NULL OR NEW.id_funcionario <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do funcionário inválido.';
-    END IF;
 
-    IF NEW.id_cargo_anterior IS NULL OR NEW.id_cargo_anterior <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do cargo anterior inválido.';
-    END IF;
 
-    IF NEW.id_cargo_novo IS NULL OR NEW.id_cargo_novo <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do cargo novo inválido.';
-    END IF;
 
-    IF (SELECT COUNT(*) FROM cargo WHERE id_cargo = NEW.id_cargo_anterior) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Cargo anterior não existe.';
-    END IF;
 
-    IF (SELECT COUNT(*) FROM cargo WHERE id_cargo = NEW.id_cargo_novo) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Cargo novo não existe.';
-    END IF;
 
-    IF NEW.data_promocao IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Data da promoção não pode ser nula.';
-    END IF;
-END$$
 
-DELIMITER ;
 
-DELIMITER $$
 
-CREATE TRIGGER antes_inserir_historico_departamento
-BEFORE INSERT ON historico_departamento
-FOR EACH ROW
-BEGIN
-    IF NEW.id_funcionario IS NULL OR NEW.id_funcionario <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do funcionário inválido.';
-    END IF;
 
-    IF NEW.id_departamento_anterior IS NULL OR NEW.id_departamento_anterior <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do departamento anterior inválido.';
-    END IF;
-
-    IF NEW.id_departamento_novo IS NULL OR NEW.id_departamento_novo <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do departamento novo inválido.';
-    END IF;
-
-    IF (SELECT COUNT(*) FROM departamento WHERE id_departamento = NEW.id_departamento_anterior) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Departamento anterior não existe.';
-    END IF;
-
-    IF (SELECT COUNT(*) FROM departamento WHERE id_departamento = NEW.id_departamento_novo) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Departamento novo não existe.';
-    END IF;
-
-    IF NEW.data_mudanca IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Data de mudança não pode ser nula.';
-    END IF;
-END$$
-
-DELIMITER ;
