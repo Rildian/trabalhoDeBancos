@@ -27,11 +27,6 @@ FOR EACH ROW
 			SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Função já existente.';
 		END IF;
-        
-        IF NEW.salario_base < 0 THEN
-			SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Erro. Salário negativo.';
-		END IF;
 	END$$
     
 DELIMITER ;
@@ -70,11 +65,6 @@ FOR EACH ROW
         IF NEW.id_cargo IS NULL THEN 
 			SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Cargo inválido.';
-		END IF;
-        
-        IF (NEW.data_contratacao IS NULL) THEN
-			SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Data de contratação nula.';
 		END IF;
         
         IF NEW.salario < 0 THEN
@@ -126,10 +116,15 @@ BEGIN
         SET MESSAGE_TEXT = 'Valor do benefício deve ser positivo.';
     END IF;
 
-    IF NEW.id_funcionario IS NULL OR NEW.id_funcionario <= 0 THEN
+    IF NEW.id_departamento IS NULL OR NEW.id_departamento <= 0 THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'ID do funcionário inválido.';
+        SET MESSAGE_TEXT = 'ID de departamento inválido.';
     END IF;
+    
+    IF NEW.id_departamento NOT IN (SELECT id_departamento FROM departamento) THEN
+			SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Id departamento não encontrado.';
+	END IF;
 END$$
 
 DELIMITER ;
