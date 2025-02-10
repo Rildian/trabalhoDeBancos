@@ -220,7 +220,6 @@ END //
 
 DELIMITER ;
 
--- falta a procedure abaixo, procedure de folha de pagamento, colocar beneficios (tabela) e fazer mais inserções
 DELIMITER // 
 
 CREATE PROCEDURE relatorio_departamentos()

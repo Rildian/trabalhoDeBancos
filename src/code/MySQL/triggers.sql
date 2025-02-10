@@ -110,7 +110,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Tipo de benefício não pode ser nulo ou vazio.';
     END IF;
-
+	
     IF NEW.valor <= 0 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Valor do benefício deve ser positivo.';
