@@ -14,6 +14,7 @@ CALL remove_funcionarios(p_id_funcionario);
 CALL remove_departamento(p_id_departamento); 
 CALL remove_cargo(p_id_cargo); 
 
+
 -- updates
 
 CALL promover_funcionario(p_id_funcionario, p_id_cargo_atual, p_id_novo_cargo, p_salario_atual, p_novo_salario); 

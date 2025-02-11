@@ -103,5 +103,23 @@ CALL promover_funcionario(); --
 CALL remove_cargo(); --
 CALL remove_funcionarios(); --
 
+SELECT * FROM beneficios;
+SELECT * FROM cargo;
+SELECT * FROM departamento;
+SELECT * FROM folha_pagamento;
+SELECT * FROM funcionario;
+SELECT * FROM treinamento;
+
+
+
+
+
+
+
+
+
+
+
+
 
 

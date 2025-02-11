@@ -95,17 +95,12 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE remove_funcionarios (
+CREATE PROCEDURE remover_funcionario (
 	IN p_id_funcionario INT)
-    
-     IF NOT EXISTS (SELECT 1 FROM funcionario WHERE p_id_funcionario = id_funcionario) THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'Funcionário não encontrao';
-    END IF;
-)
+
 BEGIN
 	DELETE FROM
-		funcionarios
+		funcionario
 	WHERE 
 		(p_id_funcionario = id_funcionario);
 END //
